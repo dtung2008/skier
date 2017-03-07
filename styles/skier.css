@@ -16,5 +16,17 @@ body {
     background: white;
     padding: 0px 0px 0px 0px;
 }
+.lb {
+    position: absolute;
+    top: 800px;
+    left: 220px;
+    font-size: 200%;
+}
+.rb {
+    position: absolute;
+    top: 800px;
+    left: 320px;
+    font-size: 200%;
+}
 
     

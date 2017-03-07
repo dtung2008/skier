@@ -7,7 +7,7 @@ const grace = 20;
 const nticks = [40, 24, 20, 24, 40];
 const lsteps = [8, 3, 0, 3, 8];
 const vstep = 5;
-const pad = 12;
+const pad = 0;
 const margin = 10;
 const LEFT_ARROW = 37;
 const RIGHT_ARROW = 39;
@@ -25,6 +25,10 @@ function createImg(src, top, left) {
 function init() {
     body = document.querySelector('body');
     body.addEventListener('keydown', keyhandler);
+    lb = document.querySelector('.lb');
+    lb.addEventListener('click', lefthandler);
+    rb = document.querySelector('.rb');
+    rb.addEventListener('click', righthandler);
     skier = createImg( "images/skier_down.png", 80, 280);   
     head = document.querySelector('h1');
     disp();
@@ -60,10 +64,10 @@ function disp() {
     maintick++;  
     if (maintick%8 == 0) {
         if (myrand(1, 100) <= 64) {
-            trees[trees.length] = createImg("images/skier_tree.png", 800, myrand(25, 550));
+            trees[trees.length] = createImg("images/skier_tree.png", 800, myrand(5, 570));
         }
         if (myrand(1, 100) <= 32) {
-           flags[flags.length] = createImg("images/skier_flag.png", 800, myrand(25, 550));
+           flags[flags.length] = createImg("images/skier_flag.png", 800, myrand(5, 570));
         }
     }
     moveUp();
@@ -160,5 +164,19 @@ function keyhandler(event) {
         break;
     }
 } 
+
+function lefthandler() {
+    if (ncollid < grace) return;
+    nskier--;
+    if (nskier < 0) nskier = 0;
+    setSkier();
+}
+
+function righthandler() {
+    if (ncollid < grace) return;
+    nskier++;
+    if (nskier > 4) nskier = 4;
+    setSkier();
+}
 
 window.onload = init;
