@@ -1,0 +1,19 @@
+html {
+    width: 600px;
+    height: 800px;
+    margin: 0 auto;
+    background: lightgrey;
+    padding: 0px 0px 0px 0px;
+}
+h1 {
+   text-align: center;
+}
+body {
+    
+    width: 600px;
+    height: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 0px 0px 0px 0px;
+}
+    

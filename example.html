@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Animation</title>
+</head>
+
+<body onkeydown="keyhandler(event);">
+    <form>
+        <img id="myImage" src="images/skier_down.png" />
+    </form>
+    <script type="text/javascript">   
+        var imgObj = null;
+        var LEFT_ARROW = 37;
+        var RIGHT_ARROW = 39;
+
+        function init() {
+            imgObj = document.getElementById('myImage');
+            imgObj.style.position = 'relative';
+            imgObj.style.top = '100px';
+            imgObj.style.left = '400px';
+        }
+
+
+        function moveRight() {
+            imgObj.style.left = parseInt(imgObj.style.left) + 10 + 'px';
+        }
+
+
+        function moveLeft() {
+            imgObj.style.left = parseInt(imgObj.style.left) - 10 + 'px';
+        }
+
+        function keyhandler(event) {
+            switch (event.which) {
+            case LEFT_ARROW:
+                moveLeft();
+                break;
+            case RIGHT_ARROW:
+                moveRight();
+                break;
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
