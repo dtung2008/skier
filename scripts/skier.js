@@ -25,7 +25,7 @@ function createImg(src, top, left) {
 function init() {
     body = document.querySelector('body');
     body.addEventListener('keydown', keyhandler);
-    skier = createImg( "../images/skier_down.png", 80, 280);   
+    skier = createImg( "images/skier_down.png", 80, 280);   
     head = document.querySelector('h1');
     disp();
 }
@@ -33,19 +33,19 @@ function init() {
 function setSkier() {
     switch (nskier) {
         case 0:
-            skier.src = "../images/skier_left2.png";
+            skier.src = "images/skier_left2.png";
             break;
         case 1:
-            skier.src = "../images/skier_left1.png";
+            skier.src = "images/skier_left1.png";
             break;
         case 2:
-            skier.src = "../images/skier_down.png";
+            skier.src = "images/skier_down.png";
             break;
         case 3:
-            skier.src = "../images/skier_right1.png";
+            skier.src = "images/skier_right1.png";
             break;
         case 4:
-            skier.src = "../images/skier_right2.png";
+            skier.src = "images/skier_right2.png";
             break;
         default:
             break;
@@ -60,10 +60,10 @@ function disp() {
     maintick++;  
     if (maintick%8 == 0) {
         if (myrand(1, 100) <= 64) {
-            trees[trees.length] = createImg("../images/skier_tree.png", 800, myrand(25, 550));
+            trees[trees.length] = createImg("images/skier_tree.png", 800, myrand(25, 550));
         }
         if (myrand(1, 100) <= 32) {
-           flags[flags.length] = createImg("../images/skier_flag.png", 800, myrand(25, 550));
+           flags[flags.length] = createImg("images/skier_flag.png", 800, myrand(25, 550));
         }
     }
     moveUp();
@@ -71,7 +71,7 @@ function disp() {
     head.textContent = "Score: "+nscore+ "\xa0\xa0\xa0\xa0\xa0\xa0\xa0"+"Distance: "+ndist;
 
     if (collid) {
-        skier.src = "../images/skier_crash.png";
+        skier.src = "images/skier_crash.png";
         collid = false;
         setTimeout(function () {
             setSkier();
