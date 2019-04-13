@@ -3,15 +3,17 @@ var ndist = 0, nscore = 0, nskier = 2, maintick = 0;
 var trees = [], flags = [];
 var collid = false;
 var ncollid = 0;
+var width = 0;
+var height = 0;
 const grace = 20;
 const nticks = [40, 24, 20, 24, 40];
 const lsteps = [8, 3, 0, 3, 8];
 const vstep = 5;
-const pad = 0;
 const margin = 10;
 const LEFT_ARROW = 37;
 const RIGHT_ARROW = 39;
 
+// create image and append to body
 function createImg(src, top, left) {
     var name = document.createElement('img');
     name.src = src;
@@ -22,18 +24,18 @@ function createImg(src, top, left) {
     return name;
 }
 
+// select body and header, acquire window size, setup skier and call disp
 function init() {
     body = document.querySelector('body');
     body.addEventListener('keydown', keyhandler);
-    lb = document.querySelector('.lb');
-    lb.addEventListener('click', lefthandler);
-    rb = document.querySelector('.rb');
-    rb.addEventListener('click', righthandler);
-    skier = createImg( "images/skier_down.png", 80, 280);   
+    width = window.innerWidth;
+    height = window.innerHeight;
+    skier = createImg("images/skier_down.png", 80, width / 2);
     head = document.querySelector('h1');
     disp();
 }
 
+// select skier mode
 function setSkier() {
     switch (nskier) {
         case 0:
@@ -60,20 +62,23 @@ function myrand(start, stop) {
     return Math.floor((Math.random() * (stop-start)) + start);
 }
 
+// process, move up and display a flame, and then callback
 function disp() {  
     maintick++;  
+    // generate trees and flags
     if (maintick%8 == 0) {
         if (myrand(1, 100) <= 64) {
-            trees[trees.length] = createImg("images/skier_tree.png", 800, myrand(5, 570));
+            trees[trees.length] = createImg("images/skier_tree.png", height - 80, myrand(5, width - 40));
         }
         if (myrand(1, 100) <= 32) {
-           flags[flags.length] = createImg("images/skier_flag.png", 800, myrand(5, 570));
+           flags[flags.length] = createImg("images/skier_flag.png", height - 80, myrand(5, width - 40));
         }
     }
     moveUp();
      
-    head.textContent = "Score: "+nscore+ "\xa0\xa0\xa0\xa0\xa0\xa0\xa0"+"Distance: "+ndist;
+    head.textContent = "Score: "+nscore+ "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"+"Distance: "+ndist;
 
+    // setup callback
     if (collid) {
         skier.src = "images/skier_crash.png";
         collid = false;
@@ -99,6 +104,7 @@ function checkOverlap(x, y, m) {
 }
 
 
+// move up trees and flags
 function moveUp() {
 
     for (var i = trees.length-1; i >= 0 ; i--) {
@@ -134,21 +140,22 @@ function moveUp() {
     if (ncollid < grace) ncollid++;
 }
 
-
+// move skier right
 function moveRight(s) {
     var left = parseInt(skier.style.left) + s;
-    var width = body.offsetWidth - skier.offsetWidth;
-    if (left > width+pad) left = width+pad;
+    var w = width - skier.offsetWidth;
+    if (left > w) left = w;
     skier.style.left = left + 'px';
 }
 
-
+// move skier left
 function moveLeft(s) {
     var left = parseInt(skier.style.left) - s;
-    if (left < pad) left = pad;
+    if (left < 0) left = 0;
     skier.style.left = left + 'px';
 }
 
+// handle left and right keystroke
 function keyhandler(event) {
     if (ncollid < grace) return;
     switch (event.which) {
@@ -165,18 +172,4 @@ function keyhandler(event) {
     }
 } 
 
-function lefthandler() {
-    if (ncollid < grace) return;
-    nskier--;
-    if (nskier < 0) nskier = 0;
-    setSkier();
-}
-
-function righthandler() {
-    if (ncollid < grace) return;
-    nskier++;
-    if (nskier > 4) nskier = 4;
-    setSkier();
-}
-
-window.onload = init;
+window.onload = init; // entry point of js

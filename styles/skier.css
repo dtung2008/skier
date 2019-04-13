@@ -1,32 +1,7 @@
 html {
-    position: absolute;
-    width: 600px;
-    height: 800px;
-    margin: 0 auto;
-    background: lightgrey;
-    padding: 0px 0px 0px 0px;
+    background: white;
 }
 h1 {
     text-align: center;
+    color: blue;
 }
-body {
-    width: 600px;
-    height: 800px;
-    margin: 0 auto;
-    background: white;
-    padding: 0px 0px 0px 0px;
-}
-.lb {
-    position: absolute;
-    top: 800px;
-    left: 180px;
-    font-size: 200%;
-}
-.rb {
-    position: absolute;
-    top: 800px;
-    left: 320px;
-    font-size: 200%;
-}
-
-    
